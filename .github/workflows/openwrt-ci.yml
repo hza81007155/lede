@@ -15,7 +15,7 @@ on:
       - mmaster
     
 permissions:
-  contents: read
+  contents: write
 
 jobs:
 
