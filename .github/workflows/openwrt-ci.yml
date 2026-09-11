@@ -65,10 +65,7 @@ jobs:
           cd package
           mkdir openwrt-packages
           cd openwrt-packages
-          git clone --depth=1 -b 18.06 https://github.com/hza81007155/luci-theme-argon package/luci-theme-argon
-          git clone --depth=1 -b 18.06 https://github.com/hza81007155/luci-app-argon-config package/luci-app-argon-config 
-          git clone https://github.com/Openwrt-Passwall/openwrt-passwall-packages package/passwall-packages
-          git clone https://github.com/Openwrt-Passwall/openwrt-passwall package/passwall-luci
+          git clone --depth=1 --single-branch https://github.com/Openwrt-Passwall/openwrt-passwall.git
           
       - name: Update feeds
         run: |
