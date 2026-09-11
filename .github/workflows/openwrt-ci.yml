@@ -60,9 +60,24 @@ jobs:
           large-packages: true
           swap-storage: true
 
+      - name: 软件仓库   
+        run:
+          cd package
+          mkdir openwrt-packages
+          cd openwrt-packages
+          git clone --depth=1 -b 18.06 https://github.com/hza81007155/luci-theme-argon package/luci-theme-argon
+          git clone --depth=1 -b 18.06 https://github.com/hza81007155/luci-app-argon-config package/luci-app-argon-config 
+          git clone https://github.com/Openwrt-Passwall/openwrt-passwall-packages package/passwall-packages
+          git clone https://github.com/Openwrt-Passwall/openwrt-passwall package/passwall-luci
+          
       - name: Update feeds
         run: |
           sed -i 's/#src-git helloworld/src-git helloworld/g' ./feeds.conf.default
+          rm -rf feeds/luci/themes/luci-theme-bootstrap
+          rm -rf feeds/luci/themes/luci-theme-argon
+          rm -rf feeds/luci/applications/luci-app-argon-config
+          rm -rf feeds/luci/applications/luci-app-passwall
+          
           ./scripts/feeds update -a
           ./scripts/feeds install -a
 
@@ -80,7 +95,7 @@ jobs:
           CONFIG_TARGET_ROOTFS_PARTSIZE=996
           CONFIG_PACKAGE_luci-theme-argon=y
           CONFIG_PACKAGE_luci-app-argon-config=y
-          CONFIG_PACKAGE_luci-theme-bootstrap=n
+          CONFIG_PACKAGE_luci-app-passwall=y
           CONFIG_PACKAGE_openssh-sftp-server=y
           
           EOF
