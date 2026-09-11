@@ -59,13 +59,6 @@ jobs:
           haskell: true
           large-packages: true
           swap-storage: true
-
-      - name: 软件仓库   
-        run:
-          cd package
-          mkdir openwrt-packages
-          cd openwrt-packages
-          git clone https://github.com/Openwrt-Passwall/openwrt-passwall.git
           
       - name: Update feeds
         run: |
