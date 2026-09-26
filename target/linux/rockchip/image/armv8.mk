@@ -410,6 +410,7 @@ define Device/hinlink_opc-h66k
 $(call Device/hinlink_common)
   DEVICE_MODEL := OPC-H66K
   SOC := rk3568
+  UBOOT_DEVICE_NAME := hinlink-h66k-rk3568
 endef
 TARGET_DEVICES += hinlink_opc-h66k
 
@@ -417,6 +418,7 @@ define Device/hinlink_opc-h68k
 $(call Device/hinlink_common)
   DEVICE_MODEL := OPC-H68K
   SOC := rk3568
+  UBOOT_DEVICE_NAME := hinlink-h68k-rk3568
 endef
 TARGET_DEVICES += hinlink_opc-h68k
 
@@ -437,6 +439,16 @@ define Device/hinlink_opc-ht2
   DEVICE_PACKAGES := kmod-aic8800-sdio wpad-openssl -urngd
 endef
 TARGET_DEVICES += hinlink_opc-ht2
+
+define Device/linkease_easepi-r1
+  DEVICE_VENDOR := LinkEase
+  DEVICE_MODEL := EasePi R1
+  SOC := rk3568
+  UBOOT_DEVICE_NAME := easepi-r1-rk3568
+  IMAGE/sysupgrade.img.gz := boot-common | boot-script | pine64-img | gzip | append-metadata
+  DEVICE_PACKAGES := blkdiscard block-mount kmod-input-adc-keys kmod-nvme kmod-r8125
+endef
+TARGET_DEVICES += linkease_easepi-r1
 
 define Device/lyt_t68m
   DEVICE_VENDOR := LYT
@@ -905,3 +917,22 @@ $(call Device/widora_mangopi-m28)
   DEVICE_PACKAGES += kmod-i2c-gpio kmod-r8125
 endef
 TARGET_DEVICES += widora_mangopi-m28k-pro
+
+define Device/wxy_oec-turbo-4g
+  DEVICE_VENDOR := WXY
+  DEVICE_MODEL := OEC Turbo 4G
+  SOC := rk3568
+  DEVICE_DTS := rk3566-oec-turbo-4g
+  UBOOT_DEVICE_NAME := wxy-rk3566
+  IMAGE_PART_OFFSET := 184320
+  IMAGE_PART_ALIGN := 2048
+  IMAGE_GPT := 1
+  IMAGE_BOOTFS := 1
+  BOOTLOADER_IMAGE := bootloader.img
+  BOOTLOADER_OFFSET := 64
+  ENV_IMAGE := env.bin
+  ENV_OFFSET := 294912
+  DEVICE_PACKAGES := kmod-ata-ahci-dwc
+  IMAGE/sysupgrade.img.gz := boot-img-ext4 | pine64-img | gzip | append-metadata
+endef
+TARGET_DEVICES += wxy_oec-turbo-4g
